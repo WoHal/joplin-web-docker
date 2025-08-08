@@ -23,8 +23,8 @@ jobs:
             wohal/joplin-web
           # generate Docker tags based on the following events/attributes
           tags: |
-            type=schedule
             type=sha
+            type=latest
 
       - name: Login to Docker Hub
         if: github.event_name != 'pull_request'
