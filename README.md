@@ -10,3 +10,5 @@ services:
         container_name: joplin-web
         ports:
             - 8080:8080
+
+```
