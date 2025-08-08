@@ -11,16 +11,7 @@ RUN cd joplin && yarn install && \
 
 FROM nginx:stable-alpine
 
-RUN cat > /etc/nginx/conf.d/joplin.conf <<EOF
-server {
-        listen 8080;
-        root /var/www/html;
-        index index.html;
-        location / {
-                root /var/www/html;
-        }
-}
-EOF
+COPY joplin-nginx.conf /etc/nginx/conf.d/joplin.conf
 
 COPY --from=builder /app/joplin/packages/app-mobile/web/dist/* /var/www/html/
 
