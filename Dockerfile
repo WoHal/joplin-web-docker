@@ -11,6 +11,12 @@ RUN cd joplin && yarn install && \
 
 FROM nginx:stable-alpine
 
+LABEL org.opencontainers.image.title='Joplin Web image'
+LABEL org.opencontainers.image.url='https://github.com/wohal/joplin-web-docker'
+LABEL org.opencontainers.image.source='https://github.com/wohal/joplin-web-docker'
+LABEL org.opencontainers.image.documentation='https://github.com/wohal/joplin-web-docker/README.md'
+LABEL org.opencontainers.image.licenses='MIT'
+
 COPY joplin-nginx.conf /etc/nginx/conf.d/joplin.conf
 
 COPY --from=builder /app/joplin/packages/app-mobile/web/dist/* /var/www/html/
