@@ -4,11 +4,11 @@ ARG TAG
 WORKDIR /app
 
 RUN apk update && apk add git rsync && \
-        git clone --depth 1 https://github.com/laurent22/joplin.git
+        git clone --depth 1 https://github.com/laurent22/joplin.git && \
+        cd joplin && git checkout $TAG
 
-RUN cd joplin && git checkout $TAG && yarn install && \
+RUN yarn install && \
         cd packages/app-mobile && yarn web
-
 
 FROM nginx:stable-alpine
 
