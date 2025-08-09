@@ -1,14 +1,12 @@
-ARG TAG="dev"
-
 FROM node:22-alpine AS builder
+ARG TAG
 
 WORKDIR /app
 
 RUN apk update && apk add git rsync && \
-        git clone --depth 1 https://github.com/laurent22/joplin.git && \
-        git checkout ${TAG}
+        git clone --depth 1 https://github.com/laurent22/joplin.git
 
-RUN cd joplin && yarn install && \
+RUN cd joplin && git checkout $TAG && yarn install && \
         cd packages/app-mobile && yarn web
 
 
