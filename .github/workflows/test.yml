@@ -1,0 +1,40 @@
+name: build
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Manual to build'
+        required: false
+        type: boolean
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    env:
+      GIT_REPO: "https://github.com/laurent22/joplin"
+      LATEST_BRANCH: "dev"
+    steps:
+      - name: Get latest commit hash
+        run: echo $(git ls-remote ${{ GIT_REPO }} | grep HEAD | awk '{print $1}') >> $LATEST_BRANCH
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            wohal/joplin-web
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            ${{ LATEST_BRANCH }}
+            latest
+
+      - name: Print vars
+        run: |
+          - echo "GIT_REPO: ${{ GIT_REPO }}"
+          - echo "LATEST_BRANCH ${{ LATEST_BRANCH }}"
+          - echo "tags: ${{ steps.meta.outputs.tags }}"
