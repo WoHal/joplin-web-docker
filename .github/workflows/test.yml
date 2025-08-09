@@ -18,7 +18,7 @@ jobs:
       LATEST_BRANCH: "dev"
     steps:
       - name: Get latest commit hash
-        run: echo $(git ls-remote ${{ GIT_REPO }} | grep HEAD | awk '{print $1}') >> $LATEST_BRANCH
+        run: echo $(git ls-remote $GIT_REPO | grep HEAD | awk '{print $1}') >> $LATEST_BRANCH
 
       - name: Docker meta
         id: meta
@@ -30,11 +30,11 @@ jobs:
           # generate Docker tags based on the following events/attributes
           tags: |
             type=schedule
-            ${{ LATEST_BRANCH }}
+            $LATEST_BRANCH
             latest
 
       - name: Print vars
         run: |
-          - echo "GIT_REPO: ${{ GIT_REPO }}"
-          - echo "LATEST_BRANCH ${{ LATEST_BRANCH }}"
+          - echo "GIT_REPO: $GIT_REPO"
+          - echo "LATEST_BRANCH $LATEST_BRANCH"
           - echo "tags: ${{ steps.meta.outputs.tags }}"
