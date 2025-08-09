@@ -35,6 +35,6 @@ jobs:
 
       - name: Print vars
         run: |
-          - echo "GIT_REPO: $GIT_REPO"
-          - echo "LATEST_BRANCH $LATEST_BRANCH"
-          - echo "tags: ${{ steps.meta.outputs.tags }}"
+          echo "GIT_REPO: $GIT_REPO"
+          echo "LATEST_BRANCH $LATEST_BRANCH"
+          echo "tags: ${{ steps.meta.outputs.tags }}"
