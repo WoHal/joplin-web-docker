@@ -1,4 +1,4 @@
-name: build
+name: test
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Manual to build'
+        description: 'Manual to test'
         required: false
         type: boolean
 
