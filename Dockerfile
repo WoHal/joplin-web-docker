@@ -2,8 +2,11 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+ARG TAG
+
 RUN apk update && apk add git rsync && \
-        git clone --depth 1 https://github.com/laurent22/joplin.git
+        git clone --depth 1 https://github.com/laurent22/joplin.git && \
+        git checkout $TAG
 
 RUN cd joplin && yarn install && \
         cd packages/app-mobile && yarn web
