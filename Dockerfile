@@ -7,7 +7,7 @@ RUN apk update && apk add git rsync && \
         git clone --depth 1 https://github.com/laurent22/joplin.git && \
         cd joplin && git checkout $TAG
 
-RUN yarn install && \
+RUN cd /app/joplin && yarn install && \
         cd packages/app-mobile && yarn web
 
 FROM nginx:stable-alpine
