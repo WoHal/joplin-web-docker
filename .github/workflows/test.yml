@@ -1,8 +1,6 @@
 name: test
 
 on:
-  schedule:
-    - cron: "0 10 * * *"
   workflow_dispatch:
     inputs:
       tags:
@@ -30,7 +28,7 @@ jobs:
           # generate Docker tags based on the following events/attributes
           tags: |
             type=schedule
-            $LATEST_BRANCH
+            ${{ env.LATEST_BRANCH }}
             latest
 
       - name: Print vars
